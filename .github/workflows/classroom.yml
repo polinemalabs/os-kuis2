@@ -19,7 +19,7 @@ jobs:
       with:
         test-name: Child Age Category
         setup-command: ''
-        command: "./kategory_usia"
+        command: "./kategori_usia"
         input: "0"
         expected-output: "Kategori: Anak-anak"
         comparison-method: exact
@@ -31,7 +31,7 @@ jobs:
       with:
         test-name: Teen Age Category
         setup-command: ''
-        command: "./kategory_usia"
+        command: "./kategori_usia"
         input: "13"
         expected-output: 'Kategori: Remaja'
         comparison-method: exact
@@ -43,7 +43,7 @@ jobs:
       with:
         test-name: Adult Age Category
         setup-command: ''
-        command: "./kategory_usia"
+        command: "./kategori_usia"
         input: "59"
         expected-output: 'Kategori: Dewasa'
         comparison-method: exact
@@ -55,7 +55,7 @@ jobs:
       with:
         test-name: Elderly Age Category
         setup-command: ''
-        command: "./kategory_usia"
+        command: "./kategori_usia"
         input: "60"
         expected-output: 'Kategori: Lansia'
         comparison-method: exact
