@@ -1,0 +1,72 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Child Age Category
+      id: childagecategory
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Child Age Category
+        setup-command: ''
+        command: "./kategory_usia"
+        input: "0"
+        expected-output: "Kategori: Anak-anak"
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+    - name: Teen Age Category
+      id: teenagecategory
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Teen Age Category
+        setup-command: ''
+        command: "./kategory_usia"
+        input: "13"
+        expected-output: 'Kategori: Remaja'
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+    - name: Adult Age Category
+      id: adultagecategory
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Adult Age Category
+        setup-command: ''
+        command: "./kategory_usia"
+        input: "59"
+        expected-output: 'Kategori: Dewasa'
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+    - name: Elderly Age Category
+      id: elderlyagecategory
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Elderly Age Category
+        setup-command: ''
+        command: "./kategory_usia"
+        input: "60"
+        expected-output: 'Kategori: Lansia'
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CHILD_AGE_CATEGORY_RESULTS: "${{steps.childagecategory.outputs.result}}"
+        TEEN_AGE_CATEGORY_RESULTS: "${{steps.teenagecategory.outputs.result}}"
+        ADULT_AGE_CATEGORY_RESULTS: "${{steps.adultagecategory.outputs.result}}"
+        ELDERLY_AGE_CATEGORY_RESULTS: "${{steps.elderlyagecategory.outputs.result}}"
+      with:
+        runners: childagecategory,teenagecategory,adultcategory,elderlyagecategory
