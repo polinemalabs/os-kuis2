@@ -69,4 +69,4 @@ jobs:
         ADULTAGECATEGORY_RESULTS: "${{steps.adultagecategory.outputs.result}}"
         ELDERLYAGECATEGORY_RESULTS: "${{steps.elderlyagecategory.outputs.result}}"
       with:
-        runners: childagecategory,teenagecategory,adultcategory,elderlyagecategory
+        runners: childagecategory,teenagecategory,adultagecategory,elderlyagecategory
