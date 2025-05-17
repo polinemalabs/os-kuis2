@@ -64,9 +64,9 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        CHILD_AGE_CATEGORY_RESULTS: "${{steps.childagecategory.outputs.result}}"
-        TEEN_AGE_CATEGORY_RESULTS: "${{steps.teenagecategory.outputs.result}}"
-        ADULT_AGE_CATEGORY_RESULTS: "${{steps.adultagecategory.outputs.result}}"
-        ELDERLY_AGE_CATEGORY_RESULTS: "${{steps.elderlyagecategory.outputs.result}}"
+        CHILDAGECATEGORY_RESULTS: "${{steps.childagecategory.outputs.result}}"
+        TEENAGECATEGORY_RESULTS: "${{steps.teenagecategory.outputs.result}}"
+        ADULTAGECATEGORY_RESULTS: "${{steps.adultagecategory.outputs.result}}"
+        ELDERLYAGECATEGORY_RESULTS: "${{steps.elderlyagecategory.outputs.result}}"
       with:
         runners: childagecategory,teenagecategory,adultcategory,elderlyagecategory
