@@ -13,8 +13,65 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Halo Without Parameter
+      id: halo-without-parameter
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Halo Without Parameter
+        setup-command: ''
+        command: "./halo"
+        input: ''
+        expected-output: |
+          Error: Parameter --nama wajib diisi.
+          Error: Parameter --kota wajib diisi.
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Halo Without City Parameter
+      id: halo-without-city-parameter
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Halo Without City Parameter
+        setup-command: ''
+        command: "./halo"
+        input: '--nama Budi'
+        expected-output: |
+          Error: Parameter --kota wajib diisi.
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Halo Without Name Parameter
+      id: halo-without-name-parameter
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Halo Without Name Parameter
+        setup-command: ''
+        command: "./halo"
+        input: '--kota Malang'
+        expected-output: |
+          Error: Parameter --nama wajib diisi.
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Halo Valid Parameter
+      id: halo-valid-parameter
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Halo Valid Parameter
+        setup-command: ''
+        command: "./halo"
+        input: '--nama Budi --kota Malang'
+        expected-output: "SELAMAT DATANG BUDI DARI KOTA MALANG"
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
     - name: Child Age Category
-      id: childagecategory
+      id: child-age-category
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Child Age Category
@@ -25,8 +82,9 @@ jobs:
         comparison-method: exact
         timeout: 10
         max-score: 5
+        
     - name: Teen Age Category
-      id: teenagecategory
+      id: teen-age-category
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Teen Age Category
@@ -37,8 +95,9 @@ jobs:
         comparison-method: exact
         timeout: 10
         max-score: 5
+
     - name: Adult Age Category
-      id: adultagecategory
+      id: adult-age-category
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Adult Age Category
@@ -49,8 +108,9 @@ jobs:
         comparison-method: exact
         timeout: 10
         max-score: 5
+
     - name: Elderly Age Category
-      id: elderlyagecategory
+      id: elderly-age-category
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: Elderly Age Category
@@ -61,12 +121,104 @@ jobs:
         comparison-method: exact
         timeout: 10
         max-score: 5
+
+    - name: Password Too Short
+      id: password-too-short
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Password Too Short
+        setup-command: ''
+        command: "./validasi_password"
+        input: "Pass123"
+        expected-output: 'Password terlalu pendek'
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Password All Lowercase
+      id: password-all-lowercase
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Password All Lowercase
+        setup-command: ''
+        command: "./validasi_password"
+        input: "pass12345"
+        expected-output: 'Password harus mengandung huruf kapital'
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Password Not Have Number
+      id: password-not-have-number
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Password Not Have Number
+        setup-command: ''
+        command: "./validasi_password"
+        input: "KataSandi"
+        expected-output: 'Password harus mengandung angka'
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Password Not Valid
+      id: password-not-valid
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Password Not Valid
+        setup-command: ''
+        command: "./validasi_password"
+        input: "sandi"
+        expected-output: |
+          Password terlalu pendek
+          Password harus mengandung huruf kapital
+          Password harus mengandung angka
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Password Valid
+      id: password-valid
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Password Valid
+        setup-command: ''
+        command: ./validasi_password
+        input: Pass1234
+        expected-output: |
+          Password diterima
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        CHILDAGECATEGORY_RESULTS: "${{steps.childagecategory.outputs.result}}"
-        TEENAGECATEGORY_RESULTS: "${{steps.teenagecategory.outputs.result}}"
-        ADULTAGECATEGORY_RESULTS: "${{steps.adultagecategory.outputs.result}}"
-        ELDERLYAGECATEGORY_RESULTS: "${{steps.elderlyagecategory.outputs.result}}"
+        HALO-WITHOUT-PARAMETER_RESULTS: "${{steps.halo-without-parameter.outputs.result}}"
+        HALO-WITHOUT-CITY-PARAMETER_RESULTS: "${{steps.halo-without-city-parameter.outputs.result}}"
+        HALO-WITHOUT-NAME-PARAMETER_RESULTS: "${{steps.halo-without-name-parameter.outputs.result}}"
+        HALO-VALID-PARAMETER_RESULTS: "${{steps.halo-valid-parameter.outputs.result}}"
+        CHILD-AGE-CATEGORY_RESULTS: "${{steps.child-age-category.outputs.result}}"
+        TEEN-AGE-CATEGORY_RESULTS: "${{steps.teen-age-category.outputs.result}}"
+        ADULT-AGE-CATEGORY_RESULTS: "${{steps.adult-age-category.outputs.result}}"
+        ELDERLY-AGE-CATEGORY_RESULTS: "${{steps.elderly-age-category.outputs.result}}"
+        PASSWORD-TOO-SHORT_RESULTS: "${{steps.password-too-short.outputs.result}}"
+        PASSWORD-ALL-LOWERCASE_RESULTS: "${{steps.password-all-lowercase.outputs.result}}"
+        PASSWORD-NOT-HAVE-NUMBER_RESULTS: "${{steps.password-not-have-number.outputs.result}}"
+        PASSWORD-NOT-VALID_RESULTS: "${{steps.password-not-valid.outputs.result}}"
+        PASSWORD-VALID_RESULTS: "${{steps.password-valid.outputs.result}}"
       with:
-        runners: childagecategory,teenagecategory,adultagecategory,elderlyagecategory
+        runners: >
+          halo-without-name-parameter,
+          halo-without-city-parameter,
+          halo-without-name-parameter,
+          halo-valid-parameter,
+          child-age-category,
+          teen-age-category,
+          adult-age-category,
+          elderly-age-category,
+          password-too-short,
+          password-all-lowercase,
+          password-not-have-number,
+          password-not-valid,
+          password-valid
