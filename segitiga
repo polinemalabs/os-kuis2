@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+# INFO: You can test the result of script using following command
+# echo "4" | ./star
+# INFO: pass flag -n to remove newline when using echo command
+read n
+
+# TODO: DRAW TRIANGLE HERE

@@ -21,7 +21,6 @@ jobs:
         test-name: Halo Without Parameter
         setup-command: ''
         command: "./halo"
-        input: ''
         expected-output: |
           Error: Parameter --nama wajib diisi.
           Error: Parameter --kota wajib diisi.
@@ -35,8 +34,7 @@ jobs:
       with:
         test-name: Halo Without City Parameter
         setup-command: ''
-        command: "./halo"
-        input: '--nama Budi'
+        command: "./halo --nama Budi"
         expected-output: |
           Error: Parameter --kota wajib diisi.
         comparison-method: exact
@@ -49,8 +47,7 @@ jobs:
       with:
         test-name: Halo Without Name Parameter
         setup-command: ''
-        command: "./halo"
-        input: '--kota Malang'
+        command: "./halo --kota Malang"
         expected-output: |
           Error: Parameter --nama wajib diisi.
         comparison-method: exact
@@ -63,9 +60,8 @@ jobs:
       with:
         test-name: Halo Valid Parameter
         setup-command: ''
-        command: "./halo"
-        input: '--nama Budi --kota Malang'
-        expected-output: "SELAMAT DATANG BUDI DARI KOTA MALANG"
+        command: "./halo --nama Budi --kota Malang"
+        expected-output: "SELAMAT DATANG BUDI DARI KOTA MALANG."
         comparison-method: exact
         timeout: 10
         max-score: 5
@@ -191,6 +187,59 @@ jobs:
         timeout: 10
         max-score: 5
 
+    - name: Triangle 1
+      id: triangle1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: triangle1
+        setup-command: ''
+        command: ./segitiga
+        input: 1
+        expected-output: |
+          *
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Triangle 3
+      id: triangle3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: triangle3
+        setup-command: ''
+        command: ./segitiga
+        input: 3
+        expected-output: |
+          *
+          **
+          ***
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
+    - name: Triangle 10
+      id: triangle10
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: triangle10
+        setup-command: ''
+        command: ./segitiga
+        input: 10
+        expected-output: |
+          *
+          **
+          ***
+          ****
+          *****
+          ******
+          *******
+          ********
+          *********
+          **********
+        comparison-method: exact
+        timeout: 10
+        max-score: 5
+
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
@@ -207,9 +256,12 @@ jobs:
         PASSWORD-NOT-HAVE-NUMBER_RESULTS: "${{steps.password-not-have-number.outputs.result}}"
         PASSWORD-NOT-VALID_RESULTS: "${{steps.password-not-valid.outputs.result}}"
         PASSWORD-VALID_RESULTS: "${{steps.password-valid.outputs.result}}"
+        TRIANGLE1_RESULTS: "${{steps.triangle1.outputs.result}}"
+        TRIANGLE3_RESULTS: "${{steps.triangle3.outputs.result}}"
+        TRIANGLE10_RESULTS: "${{steps.triangle10.outputs.result}}"
       with:
         runners: >
-          halo-without-name-parameter,
+          halo-without-parameter,
           halo-without-city-parameter,
           halo-without-name-parameter,
           halo-valid-parameter,
@@ -221,4 +273,7 @@ jobs:
           password-all-lowercase,
           password-not-have-number,
           password-not-valid,
-          password-valid
+          password-valid,
+          triangle1,
+          triangle3,
+          triangle10
